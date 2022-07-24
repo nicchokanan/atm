@@ -1,9 +1,14 @@
 package atm;
 
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class DataSourceDB {
+@Component
+@Primary
+public class DataSourceDB implements DataSource{
 
     /**
      * Simulate reading customer information from database

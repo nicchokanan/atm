@@ -1,5 +1,9 @@
 package atm;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,18 +11,20 @@ import java.util.Map;
 /**
  * A bank contains customers with bank accounts.
  */
+@Component
 public class Bank {
 
    private String name;
    private Map<Integer,Customer> customers;
-   private DataSourceFile dataSource;
+   private DataSource dataSource;
 
    /**
     * Constructs a bank with no customers.
     */
-   public Bank(String name) {
+   @Autowired
+   public Bank(@Value("${bankname}") String name, DataSource dataSource){
       this.name = name;
-      this.dataSource = new DataSourceFile("customers.txt");
+      this.dataSource = dataSource;
       this.customers = dataSource.readCustomers();
    }
 
